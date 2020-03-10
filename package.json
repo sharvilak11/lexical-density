@@ -11,7 +11,8 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@e9ine/eslint-config-node": "0.0.9-b"
+    "@e9ine/eslint-config-node": "0.0.9-b",
+    "jest": "^25.1.0"
   },
   "eslintConfig": {
     "root": true,
@@ -23,8 +24,11 @@
     }
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server.js"
+  },
+  "globals": {
+    "setupFiles": ["utilities/index.js"]
   },
   "repository": {
     "type": "git",

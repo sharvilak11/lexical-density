@@ -29,7 +29,6 @@ mongoose.connect(process.env.CONNSTRING, {
 mongoose.Promise = global.Promise;
 
 global.logger = logger;
-global.utilities = utilities;
 
 const models = require('./models')();
 

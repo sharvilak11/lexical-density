@@ -10,7 +10,7 @@ const _processLexicalComplexity = (text, nonLexicalWords) => {
     const filteredWords = strArr.filter((word) =>  {
         return nonLexicalWords.indexOf(word) < 0; // indexOf is a faster function than includes, hence let's not use includes !!
     });
-    return (filteredWords.length/strArr.length).toFixed(2);
+    return Number((filteredWords.length/strArr.length).toFixed(2));
 };
 
 module.exports = {

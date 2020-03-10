@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-const log = require('./log');
+const log = require('./Log');
 
 module.exports = (app) => {
     //SETUP LOGGER

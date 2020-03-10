@@ -1,6 +1,7 @@
-const Word = require.main.require('./models/Word').model;
+const Word = require('../models/Word').model;
 
-const { _processLexicalComplexity } = require.main.require('./helpers');
+const { _processLexicalComplexity } = require('../utilities/Helpers');
+const { ErrorMessages } = require('../utilities');
 
 /*
  * calculateLexicalComplexity - calculates the lexical density based on text and mode
@@ -9,20 +10,27 @@ const { _processLexicalComplexity } = require.main.require('./helpers');
  */
 const calculateLexicalComplexity = (text, mode) => {
     return new Promise(async (resolve, reject) => {
-        const sentences = typeof text === 'string' ? text.match(/[^\.!\?]+[\.!\?]+/g) : '';
-
-        if (!text || text.length > 1000 || sentences.length > 100) {
+        if (!text || typeof text !== 'string') {
             return reject({
                 code: 400,
                 error: {
-                    message: utilities.ErrorMessages.BAD_REQUEST
+                    message: ErrorMessages.BAD_REQUEST
+                }
+            });
+        }
+        const words = text.match(/[^\.!\?]+[\.!\?]+/g);
+        if (text.length > 1000 || words.length > 100) {
+            return reject({
+                code: 400,
+                error: {
+                    message: ErrorMessages.EXCEEDED
                 }
             });
         }
         let result = {};
-        let words = [];
+        let nonLexicalWords = [];
         try {
-            words = await getLexicalWords({}, {_id: 0, Name: 1});
+            nonLexicalWords = await getLexicalWords({}, {_id: 0, Name: 1});
         } catch (err) {
             return reject({
                 code: err.code,
@@ -31,13 +39,13 @@ const calculateLexicalComplexity = (text, mode) => {
         }
         if (mode === 'verbose') {   // process sentences if mode is verbose
             let sentenceResults = [];
-            sentences.forEach((sentence) => {
-                if (sentence)   // Process only sentence with data - avoid last fullstop or question mark etc.
-                    sentenceResults.push(_processLexicalComplexity(sentence, words));
+            words.forEach((word) => {
+                if (word)   // Process only sentence with data - avoid last fullstop or question mark etc.
+                    sentenceResults.push(_processLexicalComplexity(word, nonLexicalWords));
             });
             result['sentence_ld'] = sentenceResults;
         }
-        result['overall_ld'] = _processLexicalComplexity(text, words);   // process for average considering whole text
+        result['overall_ld'] = _processLexicalComplexity(text, nonLexicalWords);   // process for average considering whole text
         resolve({
             code: 200,
             data: result
