@@ -1,3 +1,5 @@
+const log = require('../logger/Log');
+
 module.exports = (app) => {
 
     app.get('/', function(req, res) {
@@ -10,6 +12,7 @@ module.exports = (app) => {
 
     app.use((req, res, next) => {
         res.status(404);
+        log.error('%s %d %s', req.method, res.statusCode, req.url);
         res.json({
             message: 'Not found'
         });
@@ -18,6 +21,7 @@ module.exports = (app) => {
 
     app.use((err, req, res, next) => {
         res.status(err.status || 500);
+        log.error('%s %d %s', req.method, res.statusCode, err.message);
         res.json({
             message: err.message
         });

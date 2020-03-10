@@ -72,6 +72,33 @@ const getLexicalWords = (condition, projection) => {
     });
 };
 
+const saveWord = (word) => {
+    return new Promise(async (resolve, reject) => {
+        if (!word || !word.Name) {
+            return reject({
+                code: 400,
+                error: {
+                    message: ErrorMessages.BAD_REQUEST
+                }
+            });
+        }
+        const w = new Word(word);
+        w.save(err => {
+            if (err) {
+                return reject({
+                    code: 500,
+                    error: err
+                });
+            }
+            resolve({
+                code: 200,
+                data: w
+            });
+        });
+    });
+};
+
 module.exports = {
-    calculateLexicalComplexity
+    calculateLexicalComplexity,
+    saveWord
 };

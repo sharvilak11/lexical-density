@@ -8,27 +8,21 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "mongoose": "^5.9.4",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@e9ine/eslint-config-node": "0.0.9-b",
     "jest": "^25.1.0"
-  },
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "@e9ine/eslint-config-node"
-    ],
-    "rules": {
-      "require-await": 0
-    }
   },
   "scripts": {
     "test": "jest",
     "start": "node server.js"
   },
   "globals": {
-    "setupFiles": ["utilities/index.js"]
+    "setupFiles": [
+      "utilities/index.js"
+    ]
   },
   "repository": {
     "type": "git",

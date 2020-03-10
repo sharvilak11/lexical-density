@@ -29,8 +29,9 @@ mongoose.connect(process.env.CONNSTRING, {
 mongoose.Promise = global.Promise;
 
 global.logger = logger;
+require('./middlewares');
 
-const models = require('./models')();
+require('./models')();
 
 app.listen(port, () => {
     console.log('Application started at PORT ' + port);
