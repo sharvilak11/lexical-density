@@ -47,4 +47,4 @@ Calculate the lexical density from a sentence or sentences.
 - `services` reusable services which contains the actual logic of the process
 - `tests` unit tests written with jest
 - `utils` utilities including helpers and error messages. Reason behind keeping a separate file for error messages is because you can come later at any point of time and change all errors messages of the project in a single shot.
-- .env - contains all env files. This is not meant to be committed but since it's a test, committing the same to git. 
+- .env - contains all env variables. This is not meant to be committed but since it's a test, committing the same to git. 
