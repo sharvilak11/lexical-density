@@ -1,4 +1,4 @@
 module.exports = (app) => {
-    require('./WordRoutes');
-    require('./ApiRoutes');
+    require('./WordRoutes')(app);
+    require('./ApiRoutes')(app);
 };
